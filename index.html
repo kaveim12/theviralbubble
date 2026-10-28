@@ -330,8 +330,55 @@ img { max-width: 100%; display: block; }
 .ig-link-inline:hover { color: var(--fg); }
 .ig-link-inline svg { width: 16px; height: 16px; fill: currentColor; }
 
+/* ─── Hamburger Menu ─── */
+.hamburger {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  z-index: 110;
+}
+.hamburger span {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: var(--fg-on-brand);
+  margin: 5px 0;
+  transition: transform 0.3s, opacity 0.3s;
+  border-radius: 1px;
+}
+.hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+.hamburger.active span:nth-child(2) { opacity: 0; }
+.hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
+.mobile-nav-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: var(--bg-brand);
+  z-index: 100;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 32px;
+}
+.mobile-nav-overlay.open { display: flex; }
+.mobile-nav-overlay a {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  color: var(--fg-on-brand);
+  text-decoration: none;
+  letter-spacing: 0.02em;
+  transition: opacity 0.25s;
+}
+.mobile-nav-overlay a:hover { opacity: 0.6; }
+
 @media (max-width: 768px) {
   .nav-links { display: none; }
+  .nav-ig { display: none; }
+  .nav-contact { display: none; }
+  .hamburger { display: block; }
 }
 
 /* ─── Button ─── */
@@ -901,6 +948,46 @@ img { max-width: 100%; display: block; }
   .reveal { opacity: 1; transform: none; }
 }
 
+/* ─── Mobile-First Overhaul ─── */
+@media (max-width: 600px) {
+  .wrap, .wrap-narrow {
+    padding-left: max(20px, env(safe-area-inset-left, 0px));
+    padding-right: max(20px, env(safe-area-inset-right, 0px));
+  }
+  .hero h1 { font-size: 2.4rem; margin-bottom: 20px; }
+  .hero-sub { font-size: 0.95rem; margin-bottom: 36px; }
+  .hero-line { margin-bottom: 36px; }
+  .philosophy { padding-block: 64px; }
+  .philosophy blockquote { font-size: 1.35rem; }
+  .services { padding-block: 64px; }
+  .section-label { margin-bottom: 32px; }
+  .service-item { padding-block: 28px; }
+  .service-item h3 { font-size: 1.35rem; margin-bottom: 8px; }
+  .service-item p { font-size: 0.88rem; }
+  .portfolio { padding-block: 64px; }
+  .portfolio-grid { margin-top: 32px; gap: 20px; }
+  .portfolio-card { padding: 28px 24px; }
+  .portfolio-card h3 { font-size: 1.2rem; }
+  .portfolio-services span { font-size: 0.65rem; padding: 5px 10px; }
+  .portfolio-quote { font-size: 0.92rem; margin-top: 20px; padding-top: 16px; }
+  .process { padding-block: 64px; }
+  .process-grid { margin-top: 32px; }
+  .process-step-num { font-size: 2.8rem; margin-bottom: 12px; }
+  .voices { padding-block: 64px; }
+  .voices-grid { margin-top: 32px; gap: 28px; }
+  .voice-card blockquote { font-size: 0.95rem; margin-bottom: 16px; }
+  .contact { padding-block: 64px; }
+  .contact-intro h2 { font-size: 1.8rem; }
+  .faq { padding-block: 64px; }
+  .faq-list { margin-top: 32px; }
+  .faq-q { font-size: 1.05rem; padding: 20px 0; }
+  .footer { padding-block: 48px 28px; }
+  .footer-top { margin-bottom: 40px; gap: 28px; }
+  .footer-brand { font-size: 1.3rem; }
+  .fab { width: 46px; height: 46px; }
+  .fab svg { width: 20px; height: 20px; }
+}
+
 /* ─── Form success ─── */
 .form-success {
   display: none;
@@ -934,9 +1021,21 @@ img { max-width: 100%; display: block; }
       </div>
       <a href="https://www.instagram.com/theviralbubble/" target="_blank" rel="noopener" class="nav-ig" aria-label="Instagram"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg></a>
       <a href="#enquire" class="nav-contact">Enquire</a>
+      <button class="hamburger" aria-label="Menu" onclick="document.querySelector('.hamburger').classList.toggle('active');document.querySelector('.mobile-nav-overlay').classList.toggle('open');document.body.style.overflow=document.querySelector('.mobile-nav-overlay').classList.contains('open')?'hidden':''">
+        <span></span><span></span><span></span>
+      </button>
     </div>
   </div>
 </nav>
+
+<div class="mobile-nav-overlay">
+  <a href="#services" onclick="document.querySelector('.hamburger').classList.remove('active');document.querySelector('.mobile-nav-overlay').classList.remove('open');document.body.style.overflow=''">Services</a>
+  <a href="#work" onclick="document.querySelector('.hamburger').classList.remove('active');document.querySelector('.mobile-nav-overlay').classList.remove('open');document.body.style.overflow=''">Work</a>
+  <a href="#approach" onclick="document.querySelector('.hamburger').classList.remove('active');document.querySelector('.mobile-nav-overlay').classList.remove('open');document.body.style.overflow=''">Approach</a>
+  <a href="#faq" onclick="document.querySelector('.hamburger').classList.remove('active');document.querySelector('.mobile-nav-overlay').classList.remove('open');document.body.style.overflow=''">FAQ</a>
+  <a href="#enquire" onclick="document.querySelector('.hamburger').classList.remove('active');document.querySelector('.mobile-nav-overlay').classList.remove('open');document.body.style.overflow=''">Enquire</a>
+  <a href="https://www.instagram.com/theviralbubble/" target="_blank" rel="noopener">Instagram</a>
+</div>
 
 <!-- ─── Hero ─── -->
 <section class="hero">
